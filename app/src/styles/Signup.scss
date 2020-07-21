@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "Walsheim";
+  src: url("./font/GT-Walsheim-Pro-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Walsheim";
+  src: url("./font/GT-Walsheim-Pro-Bold.woff") format("woff");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Walsheim";
+  src: url("./font/GT-Walsheim-Pro-Medium.woff") format("woff");
+}
+
+.sign-up-page {
+  display: flex;
+  height: 100vh;
+  font-family: Walsheim;
+  margin: auto;
+  box-sizing: border-box;
+  &__left {
+    width: 33%;
+    background-color: lightblue;
+  }
+  &__right {
+    width: 66%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    &--container {
+      width: 75%;
+      height: 75%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    &--submit {
+      background-color: rgb(232, 233, 235);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    &--row {
+      display: flex;
+      justify-content: space-between;
+      &--name {
+        width: 48%;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+  &__input {
+    background-color: rgb(240, 241, 242);
+    border-radius: 10px;
+    padding: 3px;
+    border: none;
+    margin: 10px 0; // add top and bottom margin
+    :focus {
+      border: 1px solid rgb(104, 125, 236);
+      background-color: white;
+    }
+  }
+}
