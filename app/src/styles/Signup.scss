@@ -23,6 +23,11 @@
   &__left {
     width: 33%;
     background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2em;
+    height: 100%;
   }
   &__right {
     width: 66%;

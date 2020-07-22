@@ -3,6 +3,7 @@ import * as React from "react";
 import "../styles/Signup.scss";
 import axios from "axios";
 import PasswordValidation from "./PasswordValidation";
+
 type Props = {
   /* ... */
 };
@@ -40,6 +41,19 @@ export default class SignUp extends React.Component<Props, State> {
     return doesStringContainNumber && string.length >= 8;
   };
 
+  showModal = () => {
+    this.setState({
+      visible: true
+    });
+  };
+
+  handleOk = (e: SyntheticEvent<HTMLButtonElement>) => {
+    console.log(e);
+    this.setState({
+      visible: false
+    });
+  };
+
   //all fields must not be empty, and password is valid
   validateFields = (): boolean => {
     const { firstName, lastName, email, password, agreed } = this.state;
@@ -53,7 +67,7 @@ export default class SignUp extends React.Component<Props, State> {
   };
 
   // send information to the server via post request, can be async depending on what we need to do after this step
-  onSubmit = (e: SyntheticEvent<HTMLButtonElement>) => {
+  onSubmit = async (e: SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const { firstName, lastName, email, password } = this.state;
     const axiosBody = {
@@ -63,19 +77,16 @@ export default class SignUp extends React.Component<Props, State> {
       password
     };
 
-    console.log(axiosBody);
-
     //sends the state to the server for storing in database
     //nodeJs server can be located in the server directory
-    axios
-      .post("/user", axiosBody)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-        console.log("local server is not running for simplicity sake");
-      });
+    try {
+      let response = await axios.post("http://localhost:8080/user", axiosBody);
+      this.showModal();
+      console.log(response);
+      window.alert('woohoo, sucessful signup')
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   handleChange = (e: SyntheticInputEvent<HTMLInputElement>, field: string) => {
@@ -111,7 +122,12 @@ export default class SignUp extends React.Component<Props, State> {
     const buttonEnabled = this.validateFields();
     return (
       <div className="sign-up-page">
-        <div className="sign-up-page__left"></div>
+        <div className="sign-up-page__left">
+          <h1>
+            Switching over is easy! Best of all, make your plan as affordable as
+            you want!
+          </h1>
+        </div>
         <div className="sign-up-page__right">
           <div className="sign-up-page__right--container">
             <div className="sign-up-page__right--header">

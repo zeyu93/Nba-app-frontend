@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, fireEvent } from "@testing-library/react";
 import SignUp from "../components/SignUp";
 import ReactDOM from "react-dom";
 
@@ -15,8 +15,24 @@ it("button is disabled when the form is incomplete", () => {
   expect(getByTestId("button")).toBeDisabled();
 });
 
-test('It should keep a $ in front of the input', () => {
-  const { input } = setup()
-  fireEvent.change(input, { target: { value: '23' } })
-  expect(input.value).toBe('$23')
-}
+test('button is enabled when form is filled', () => {
+  const { getByTestId } = render(<SignUp />);
+  const firstName = getByTestId('firstName')
+  fireEvent.change(firstName, { target: { value: 'john' } })
+
+  const lastName = getByTestId('lastName')
+  fireEvent.change(lastName, { target: { value: 'Cena' } })
+
+  const email = getByTestId('email')
+  fireEvent.change(email, { target: { value: 'john@gmail.com' } })
+
+  const password = getByTestId('password')
+  fireEvent.change(password, { target: { value: 'john12345' } })
+
+  const agreed = getByTestId('agree')
+  fireEvent.click(agreed)
+
+  const button = getByTestId('button')
+
+  expect(button).not.toHaveAttribute('disabled')
+})

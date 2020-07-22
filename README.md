@@ -1,35 +1,34 @@
-## US Mobile Front End Coding Exercise
+## READ ME OVERVIEW
+To start client side:
+npm run start
 
-The front end coding exercise is meant to fairly evaluate a candidate with the least amount of effort (~ 4 hours) to come up with a working prototype of a sign up page.
+To start server:
+npm run server
 
-## Motivation
 
-The exercise has been structured around the work style that US Mobile front end engineers and product design teams engage in to come out with fantastic visual experiences.
+I kick started this prject using create-react-app. The main directory is 'app'.
+I also wrote a simple Express server, located in app/src/server/
 
-## Design Screens
+The server simply responds back with the request body in console
 
-Internally we use Figma to share UX designs with front end engineers. The UX design can be found at
+## Check list:
+1.Password validation:  The 2 criteria for the password: length / contains number are both working.
+4.Colors/logo change as password validation is passed
+2.Form's submit button will not be enabled unless all fields are filled , checked for agreement & password validations are passed
+3.Styling done with scss,Flexbox. I did the best I could by eye-balling and looking at the design provided. Could be alot better if I was given the actual dimensions
+4.Form can submit data via axios, a response is sent back via console.log
 
+## Notes / Areas of Improvement
+
+1.I did not set up a databse with the Express server because I believe it is not the goal of this assignment.
+2.I can implmenet a better confirmation popup Modal instead of a window.alert when user submits the form.
+
+
+## Resource Provided:
 https://www.figma.com/file/WJW4Eb8cFSJgOgOK6lZgOl/USM-Sign-up-Engineering-Assignment?node-id=0%3A1
 
 Hover & Button Prototype: https://www.figma.com/proto/zZczN3OAd5WIomNzxei8k5/Engineering-Assignment-Sign-up?node-id=107%3A673&viewport=723%2C968%2C0.12644416093826294&scaling=min-zoom
 
-* This last one is just the behaviour for the hover on each box and also how it looks when you click on the checkmark and the button becomes active.
-* To double check and make 100% clear, the button will only become active after all the boxes have been filled correctly and the checkmark has also been clicked. This example is just to show the behaviour of the elements.
 
-The links are available only in view only mode. If there is any clarification required, Please do reach out to the hiring manager.
 
-Some of the fonts might required a paid version. The ones that we use can be found in the font directory.
-
-## Engineering Constraints
-
-* Create a feature branch. Naming convention to follow is feature/signup_page_<Name of the candidate> 
-* Please use React
-* The code should be type covered, either is fine Typescript or FlowType
-* Prefer javascript based styling approach, JSS/styled-components etc.
-* Write tests using jest and react-testing-library
-* The page(s) should be mobile and desktop friendly. They should render properly on both.
-* Other design choices are left to the candidate eg; Leverage either node js based API for client-server integration or we do use firebase internally.
-* Update the read me file to run the code
-* Raise a pull request for review
 
