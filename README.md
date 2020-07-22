@@ -22,9 +22,10 @@ The server simply responds back with the request body in console
 
 * I did not set up a databse with the Express server because I believe it is not the goal of this assignment.
 * I can implmenet a better confirmation popup Modal instead of a window.alert when user submits the form.
+* It was my first time using Flow & Jest. So i am sure there are alot of improvements for the unit tests and also writing better type covered code.
 
 
-##image
+## Image
 
 ![Sign Up Page](/app/public/screenshot.png)
 
