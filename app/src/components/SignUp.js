@@ -3,6 +3,8 @@ import * as React from "react";
 import "../styles/Signup.scss";
 import axios from "axios";
 import PasswordValidation from "./PasswordValidation";
+import { Modal } from "antd";
+import "antd/dist/antd.css";
 
 type Props = {
   /* ... */
@@ -25,7 +27,9 @@ export default class SignUp extends React.Component<Props, State> {
       email: "",
       password: "",
       agreed: false,
-      passwordFocused: false
+      passwordFocused: false,
+      visible: false,
+      failedRequest: true
     };
   }
 
@@ -81,10 +85,15 @@ export default class SignUp extends React.Component<Props, State> {
     //nodeJs server can be located in the server directory
     try {
       let response = await axios.post("http://localhost:8080/user", axiosBody);
-      this.showModal();
+
+      this.setState({ failedRequest: false }, () => {
+        this.showModal();
+      });
       console.log(response);
-      window.alert('woohoo, sucessful signup')
     } catch (err) {
+      this.setState({ failedRequest: true }, () => {
+        this.showModal();
+      });
       console.log(err);
     }
   };
@@ -117,7 +126,8 @@ export default class SignUp extends React.Component<Props, State> {
       email,
       password,
       agreed,
-      passwordFocused
+      passwordFocused,
+      failedRequest
     } = this.state;
     const buttonEnabled = this.validateFields();
     return (
@@ -128,6 +138,23 @@ export default class SignUp extends React.Component<Props, State> {
             you want!
           </h1>
         </div>
+
+        <Modal
+          title="Basic Modal"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleOk}
+        >
+          {failedRequest ? (
+            <p>
+              Express server isn't running, submission failed. Please run npm
+              run server!
+            </p>
+          ) : (
+            <p>Successfully subbmitted data to Express server.</p>
+          )}
+        </Modal>
+
         <div className="sign-up-page__right">
           <div className="sign-up-page__right--container">
             <div className="sign-up-page__right--header">
