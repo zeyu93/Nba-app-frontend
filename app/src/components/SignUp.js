@@ -1,10 +1,22 @@
-import React from "react";
+// @flow
+import * as React from "react";
 import "../styles/Signup.scss";
 import axios from "axios";
 import PasswordValidation from "./PasswordValidation";
+type Props = {
+  /* ... */
+};
 
-export default class SignUp extends React.Component {
-  constructor(props) {
+type State = {
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  agreed: boolean,
+  passwordFocused: boolean
+};
+export default class SignUp extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       firstName: "",
@@ -17,19 +29,19 @@ export default class SignUp extends React.Component {
   }
 
   //helper function that can be passed down as prop
-  containsOneNumber = string => {
+  containsOneNumber = (string: string): boolean => {
     const regex = /[0-9]/g;
     return regex.test(string);
   };
 
   // at least 8 character & one number
-  isValidPasssWord = string => {
+  isValidPasssWord = (string: string) => {
     let doesStringContainNumber = this.containsOneNumber(string);
     return doesStringContainNumber && string.length >= 8;
   };
 
   //all fields must not be empty, and password is valid
-  validateFields = () => {
+  validateFields = (): boolean => {
     const { firstName, lastName, email, password, agreed } = this.state;
     return (
       firstName !== "" &&
@@ -41,7 +53,7 @@ export default class SignUp extends React.Component {
   };
 
   // send information to the server via post request, can be async depending on what we need to do after this step
-  onSubmit = e => {
+  onSubmit = (e: SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const { firstName, lastName, email, password } = this.state;
     const axiosBody = {
@@ -66,14 +78,14 @@ export default class SignUp extends React.Component {
       });
   };
 
-  handleChange = (e, field) => {
+  handleChange = (e: SyntheticInputEvent<HTMLInputElement>, field: string) => {
     const {
       target: { value }
     } = e;
     this.setState({ [field]: value });
   };
 
-  toggleAgreement = e => {
+  toggleAgreement = (e: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState(prevState => ({
       agreed: !prevState.agreed
     }));
@@ -103,7 +115,7 @@ export default class SignUp extends React.Component {
         <div className="sign-up-page__right">
           <div className="sign-up-page__right--container">
             <div className="sign-up-page__right--header">
-              <div className="logo"/>
+              <div className="logo" />
               <h1>Start saving today!</h1>
             </div>
 
@@ -111,6 +123,7 @@ export default class SignUp extends React.Component {
               <div className="row-container--name">
                 <span>First Name:</span>
                 <input
+                  data-testid="firstName"
                   className="sign-up-page__input"
                   type="text"
                   onChange={e => this.handleChange(e, "firstName")}
@@ -121,6 +134,7 @@ export default class SignUp extends React.Component {
               <div className="row-container--name">
                 <span>Last Name:</span>
                 <input
+                  data-testid="lastName"
                   type="text"
                   className="sign-up-page__input"
                   value={lastName}
@@ -132,6 +146,7 @@ export default class SignUp extends React.Component {
             <div className="sign-up-page__right--row">
               <span> Email:</span>
               <input
+                data-testid="email"
                 type="email"
                 className="sign-up-page__input"
                 value={email}
@@ -142,6 +157,7 @@ export default class SignUp extends React.Component {
             <div className="sign-up-page__right--row">
               <span> Create a password:</span>
               <input
+                data-testid="password"
                 type="password"
                 className="sign-up-page__input"
                 value={password}
@@ -156,12 +172,13 @@ export default class SignUp extends React.Component {
               />
             </div>
 
-            <div  className="sign-up-page__right--divider"/>
+            <div className="sign-up-page__right--divider" />
 
             <div className="sign-up-page__right--footer">
               <div>
                 <label>
                   <input
+                    data-testid="agree"
                     type="checkbox"
                     value={agreed}
                     onChange={this.toggleAgreement}
@@ -171,6 +188,7 @@ export default class SignUp extends React.Component {
               </div>
 
               <button
+                data-testid="button"
                 className="sign-up-page__right--submit"
                 onClick={this.onSubmit}
                 disabled={!buttonEnabled}

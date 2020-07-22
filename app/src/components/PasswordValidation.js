@@ -1,13 +1,18 @@
+// @flow
 import React from "react";
 import "../styles/PasswordValidation.scss";
 import cx from "classnames";
 
+type ValidationProps ={
+  length: number,
+  containsNumber: boolean,
+  passwordFocused: boolean
+}
 export default function PasswordValidation({
   length,
   containsNumber,
   passwordFocused
-}) {
-  console.log(containsNumber);
+}: ValidationProps) {
   return (
     <div className="password-validation">
       <div
