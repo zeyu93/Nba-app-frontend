@@ -3,7 +3,8 @@ const path = require('path');
 const app = express();
 const cors = require("cors");
 
-
+// no database set up, but we can use Mongoose / MySQl or whatever we need
+// Here just setting up a basic express server to handle Request/response
 app.use(cors());
 app.use(express.json())
 
