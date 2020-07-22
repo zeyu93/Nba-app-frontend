@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/Signup.scss";
 import axios from "axios";
+import PasswordValidation from "./PasswordValidation";
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -10,17 +11,24 @@ export default class SignUp extends React.Component {
       lastName: "",
       email: "",
       password: "",
-      agreed: false
+      agreed: false,
+      passwordFocused: false
     };
   }
 
-  isValidPasssWord = string => {
-    // at least 8 character & one number
+  //helper function that can be passed down as prop
+  containsOneNumber = string => {
     const regex = /[0-9]/g;
-    let doesStringContainNumber = regex.test(string);
+    return regex.test(string);
+  };
+
+  // at least 8 character & one number
+  isValidPasssWord = string => {
+    let doesStringContainNumber = this.containsOneNumber(string);
     return doesStringContainNumber && string.length >= 8;
   };
 
+  //all fields must not be empty, and password is valid
   validateFields = () => {
     const { firstName, lastName, email, password, agreed } = this.state;
     return (
@@ -32,9 +40,9 @@ export default class SignUp extends React.Component {
     );
   };
 
+  // send information to the server via post request, can be async depending on what we need to do after this step
   onSubmit = e => {
     e.preventDefault();
-    // send information to the server via post request
     const { firstName, lastName, email, password } = this.state;
     const axiosBody = {
       firstName,
@@ -42,6 +50,8 @@ export default class SignUp extends React.Component {
       email,
       password
     };
+
+    console.log(axiosBody);
 
     //sends the state to the server for storing in database
     //nodeJs server can be located in the server directory
@@ -52,71 +62,121 @@ export default class SignUp extends React.Component {
       })
       .catch(error => {
         console.log(error);
+        console.log("local server is not running for simplicity sake");
       });
   };
-  render() {
-    const { firstName, lastName, email, password, agreed } = this.state;
 
+  handleChange = (e, field) => {
+    const {
+      target: { value }
+    } = e;
+    this.setState({ [field]: value });
+  };
+
+  toggleAgreement = e => {
+    this.setState(prevState => ({
+      agreed: !prevState.agreed
+    }));
+  };
+
+  onFocus = () => {
+    this.setState({ passwordFocused: true });
+  };
+
+  onBlur = () => {
+    this.setState({ passwordFocused: false });
+  };
+
+  render() {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      agreed,
+      passwordFocused
+    } = this.state;
+    const buttonEnabled = this.validateFields();
     return (
       <div className="sign-up-page">
         <div className="sign-up-page__left"></div>
         <div className="sign-up-page__right">
           <div className="sign-up-page__right--container">
-            <h1>Start saving today!</h1>
-            <div className="sign-up-page__right--row">
-              <div className="sign-up-page__right--row--name">
+            <div className="sign-up-page__right--header">
+              <div className="logo"/>
+              <h1>Start saving today!</h1>
+            </div>
+
+            <div className="sign-up-page__right--row sign-up-page__right--row--name">
+              <div className="row-container--name">
                 <span>First Name:</span>
                 <input
                   className="sign-up-page__input"
                   type="text"
-                  // value={this.state.value}
-                  // onChange={this.handleChange}
+                  onChange={e => this.handleChange(e, "firstName")}
+                  value={firstName}
                 />
               </div>
 
-              <div className="sign-up-page__right--row--name">
+              <div className="row-container--name">
                 <span>Last Name:</span>
                 <input
                   type="text"
                   className="sign-up-page__input"
-                  // value={this.state.value}
-                  // onChange={this.handleChange}
+                  value={lastName}
+                  onChange={e => this.handleChange(e, "lastName")}
                 />
               </div>
             </div>
+
             <div className="sign-up-page__right--row">
-              <label>
-                Email:
-                <input
-                  type="email"
-                  className="sign-up-page__input"
-                  // value={this.state.value}
-                  // onChange={this.handleChange}
-                />
-              </label>
+              <span> Email:</span>
+              <input
+                type="email"
+                className="sign-up-page__input"
+                value={email}
+                onChange={e => this.handleChange(e, "email")}
+              />
             </div>
+
             <div className="sign-up-page__right--row">
-              <label>
-                Create a password:
-                <input
-                  type="password"
-                  className="sign-up-page__input"
-                  // value={this.state.value}
-                  // onChange={this.handleChange}
-                />
-              </label>
+              <span> Create a password:</span>
+              <input
+                type="password"
+                className="sign-up-page__input"
+                value={password}
+                onChange={e => this.handleChange(e, "password")}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+              />
+              <PasswordValidation
+                length={password.length}
+                containsNumber={this.containsOneNumber(password)}
+                passwordFocused={passwordFocused}
+              />
             </div>
-            <div>
-              <label>
-                <input type="checkbox" />
-                <span>Agree to the Terms & Privacy policy</span>
-              </label>
-            </div>
-            <div
-              className="sign-up-page__right--submit"
-              onClick={this.onSubmit}
-            >
-              <span>CREATE AN ACCOUNT</span>
+
+            <div  className="sign-up-page__right--divider"/>
+
+            <div className="sign-up-page__right--footer">
+              <div>
+                <label>
+                  <input
+                    type="checkbox"
+                    value={agreed}
+                    onChange={this.toggleAgreement}
+                  />
+                  <span>Agree to the Terms & Privacy policy</span>
+                </label>
+              </div>
+
+              <button
+                className="sign-up-page__right--submit"
+                onClick={this.onSubmit}
+                disabled={!buttonEnabled}
+              >
+                <span>CREATE AN ACCOUNT</span>
+              </button>
             </div>
           </div>
         </div>
