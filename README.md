@@ -1,4 +1,6 @@
 ## READ ME OVERVIEW
+## PLEASE CD INTO THE APP DIRECTORY IN ORDER TO RUN THE APPLICATION
+
 To start client side:
 npm run start
 
@@ -16,12 +18,12 @@ The server simply responds back with the request body in console
 2. Colors/logo change as password validation is passed
 3. Form's submit button will not be enabled unless all fields are filled , checked for agreement & password validations are passed
 4. Styling done with scss,Flexbox. I did the best I could by eye-balling and looking at the design provided. Could be alot better if I was given the actual dimensions
-5. Form can submit data via axios, a response is sent back via console.log
+5. Form can submit data via axios, a response is sent back via console.log / confirmation via pop up modal
+7. Unit test for disabling/ enabling button
 
 ## Notes / Areas of Improvement
 
 * I did not set up a databse with the Express server because I believe it is not the goal of this assignment.
-* I can implmenet a better confirmation popup Modal instead of a window.alert when user submits the form.
 * It was my first time using Flow & Jest. So i am sure there are alot of improvements for the unit tests and also writing better type covered code.
 
 
