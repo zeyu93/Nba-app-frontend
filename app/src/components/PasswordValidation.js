@@ -11,13 +11,14 @@ type ValidationProps ={
 export default function PasswordValidation({
   length,
   containsNumber,
-  passwordFocused
+  isPasswordFocused
 }: ValidationProps) {
+
   return (
     <div className="password-validation">
       <div
         className={cx("password-validation__container", {
-          "password-validation__container--focused": passwordFocused,
+          "password-validation__container--focused": isPasswordFocused,
           "password-validation__symbol--passed":  length >= 8
         })}
       >
@@ -31,7 +32,7 @@ export default function PasswordValidation({
 
       <div
         className={cx("password-validation__container", {
-          "password-validation__container--focused": passwordFocused,
+          "password-validation__container--focused": isPasswordFocused,
           "password-validation__symbol--passed": containsNumber
         })}
       >
