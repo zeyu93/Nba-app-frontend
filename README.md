@@ -9,11 +9,11 @@ React Hooks
 
 ## Goals and Features
 1. Allows user to favourite players
-2. Feed will refresh all related news/ highlights on favourited players ( IG/FB feed with your favourite basketball players only)
+2. Feed will refresh all related news/ highlights on favourited players (Think of IG/FB feed with your favourite basketball players only)
 3. Be able to check stats and live score updates much quicker than NBA.com
 
 ## To Do:
-1. Sign up Page
+1. Sign up Page (done)
 2. Profile Page
 3. Home Page
 4. Back end for handling data
