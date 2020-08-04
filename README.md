@@ -4,13 +4,16 @@ CD into app
 
 npm run start
 
+Using Create-React App
+React Hooks
 
-The server simply responds back with the request body in console
+
 
 ## To Do:
 1. Sign up Page
 2. Profile Page
 3. Home Page
+4. Back end for handling data
 
 ## Sign up page features:
 1. Password validation:  The 2 criteria for the password: length / contains number are both working.
