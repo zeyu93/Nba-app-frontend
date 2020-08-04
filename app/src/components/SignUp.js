@@ -102,7 +102,7 @@ const SignUp = () => {
   return (
     <div className="sign-up-page">
       <div className="sign-up-page__left">
-        <h1>All your favourite player's news and stats in one place.</h1>
+        <h1>All your favourite players, latest stories &  highlights in one place.</h1>
       </div>
 
       <Modal
@@ -111,14 +111,14 @@ const SignUp = () => {
         onOk={handleModal}
         onCancel={handleModal}
       >
-        <p>App still in progress</p>
+        <p>Back End still in progress</p>
       </Modal>
 
       <div className="sign-up-page__right">
         <div className="sign-up-page__right--container">
           <div className="sign-up-page__right--header">
             <div className="logo" />
-            <h1>Start saving today!</h1>
+            <h1>Join us today!</h1>
           </div>
 
           <div className="sign-up-page__right--row sign-up-page__right--row--name">
